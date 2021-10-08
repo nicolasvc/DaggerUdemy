@@ -56,7 +56,7 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
 
     override fun onStop() {
         super.onStop()
-        questionDetailsMvc.unregisterListener(this)
+        questionDetailsMvc.removeListener(this)
         coroutineScope.coroutineContext.cancelChildren()
     }
 

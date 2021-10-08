@@ -4,57 +4,44 @@ import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.IdRes
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.daggerudemy.R
 import com.example.daggerudemy.screens.common.toolbar.MyToolbar
+import com.example.daggerudemy.screens.common.viewsmvc.BaseViewMvc
 
-class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent:ViewGroup?) {
+class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
+    BaseViewMvc<QuestionDetailsMvc.Listener>(
+        layoutInflater, parent,
+        R.layout.layout_question_details
+    ) {
 
 
-    private lateinit var toolbar: MyToolbar
-    private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var txtQuestionBody: TextView
+    private val toolbar: MyToolbar
+    private val swipeRefresh: SwipeRefreshLayout
+    private val txtQuestionBody: TextView
 
-    val rootView: View = layoutInflater.inflate(R.layout.layout_question_details, parent, false)
-    private val context: Context get() = rootView.context
 
-    interface Listener{
+    interface Listener {
         fun onBackClicked()
     }
 
-    private val listeners = HashSet<Listener>()
-
     init {
         txtQuestionBody = findViewById(R.id.txt_question_body)
-
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
+        //Se le agrega una acción a un objeto con base en el listener que se ha pasado
         toolbar.setNavigateUpListener {
-            for(listener in listeners){
+            for (listener in listeners) {
                 listener.onBackClicked()
             }
         }
-
         // init pull-down-to-refresh (used as a progress indicator)
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.isEnabled = false
     }
 
-    private fun<T: View?> findViewById(@IdRes id:Int):T{
-        return rootView.findViewById<T>(id)
-    }
-
-    fun registerListener(listener: Listener){
-        listeners.add(listener)
-    }
-
-    fun unregisterListener(listener: Listener){
-        listeners.remove(listener)
-    }
 
     fun showData(questionBody: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -65,14 +52,14 @@ class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent:ViewGroup?) {
         }
     }
 
-     fun showProgressIndication() {
+    fun showProgressIndication() {
         swipeRefresh.isRefreshing = true
     }
 
-     fun hideProgressIndication() {
-         if (swipeRefresh.isRefreshing) {
-             swipeRefresh.isRefreshing = false
-         }
+    fun hideProgressIndication() {
+        if (swipeRefresh.isRefreshing) {
+            swipeRefresh.isRefreshing = false
+        }
     }
 
 }

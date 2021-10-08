@@ -5,22 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.IdRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.daggerudemy.R
 import com.example.daggerudemy.questions.Question
+import com.example.daggerudemy.screens.common.viewsmvc.BaseViewMvc
 import java.util.*
-import kotlin.collections.HashSet
 import kotlin.collections.List
 
 /**
  * Clase encargada de renderizar la vista de una actividad en especifico
  */
-class QuestionListViewMvc(
-    layoutInflater: LayoutInflater,
-    parent: ViewGroup?
+class QuestionListViewMvc(layoutInflater: LayoutInflater, parent: ViewGroup?
+) : BaseViewMvc<QuestionListViewMvc.Listener>(
+    layoutInflater,
+    parent,
+    R.layout.layout_questions_list
 ) {
 
 
@@ -36,14 +37,10 @@ class QuestionListViewMvc(
     private val recyclerView: RecyclerView
     private val questionsAdapter: QuestionsAdapter
 
-    val rootView: View = layoutInflater.inflate(R.layout.layout_questions_list, parent, false)
-    private val context: Context get() = rootView.context
 
-    //HashSet es una lista sin orden que no contiene elementos duplicados
-    private val listeners = HashSet<Listener>()
+
 
     init {
-
         // init pull-down-to-refresh
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
@@ -78,31 +75,6 @@ class QuestionListViewMvc(
             swipeRefresh.isRefreshing = false
         }
     }
-
-    /**
-     * Metodo encargado de retornar una vista de forma dinamica y asi reducir el codigo
-     * @param id como parametro un entero que funciona como un IdRES
-     * @return Un objeto tipo T de la vista (Recycler, TextView,Etc...)
-     * */
-    private fun <T : View?> findViewById(@IdRes id: Int): T {
-        return rootView.findViewById<T>(id)
-    }
-
-    /**
-     * @param listener recibe un una interfaz tipo listener y la agrega en el HashSet
-     */
-    fun registerListener(listener: Listener) {
-        listeners.add(listener)
-    }
-
-    /**
-     * @param listener recibe un una interfaz tipo listener y lo elimina del HashSet
-     */
-    fun removeListener(listener: Listener) {
-        listeners.remove(listener)
-    }
-
-
 
 
     class QuestionsAdapter(
