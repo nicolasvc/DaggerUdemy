@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.daggerudemy.R
 import com.example.daggerudemy.Constants
 import com.example.daggerudemy.networking.StackoverflowApi
+import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.dialogs.ServerErrorDialogFragment
 import com.example.daggerudemy.screens.common.toolbar.MyToolbar
 import kotlinx.coroutines.*
@@ -22,27 +23,17 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-
-
-    private lateinit var stackoverflowApi: StackoverflowApi
-
     private lateinit var questionId: String
 
     private lateinit var questionDetailsMvc: QuestionDetailsMvc
+
+    private lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
         setContentView(questionDetailsMvc.rootView)
-
-
-
-        // init retrofit
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
+        fetchDetailQuestionUseCase = FetchDetailQuestionUseCase()
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
@@ -64,21 +55,16 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
         coroutineScope.launch {
             questionDetailsMvc.showProgressIndication()
             try {
-                val response = stackoverflowApi.questionDetails(questionId)
-                if (response.isSuccessful && response.body() != null) {
-                    val questionBody = response.body()!!.question.body
-                    questionDetailsMvc.showData(questionBody)
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
+                val result = fetchDetailQuestionUseCase.fetchDetailQuestion(questionId)
+                when(result){
+                    is FetchDetailQuestionUseCase.Result.Success->{
+                        questionDetailsMvc.showData(result.questionBody)
+                    }
+                    is FetchDetailQuestionUseCase.Result.Failure->  onFetchFailed()
                 }
             } finally {
                 questionDetailsMvc.hideProgressIndication()
             }
-
         }
     }
 
@@ -87,8 +73,6 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
                 .add(ServerErrorDialogFragment.newInstance(), null)
                 .commitAllowingStateLoss()
     }
-
-
 
     companion object {
         const val EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID"
