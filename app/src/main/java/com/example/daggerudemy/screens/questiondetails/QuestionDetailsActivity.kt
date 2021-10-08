@@ -2,39 +2,27 @@ package com.example.daggerudemy.screens.questiondetails
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.daggerudemy.R
-import com.example.daggerudemy.Constants
-import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
-import com.example.daggerudemy.screens.common.dialogs.ServerErrorDialogFragment
-import com.example.daggerudemy.screens.common.toolbar.MyToolbar
+import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
     private lateinit var questionId: String
-
     private lateinit var questionDetailsMvc: QuestionDetailsMvc
-
     private lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
         setContentView(questionDetailsMvc.rootView)
         fetchDetailQuestionUseCase = FetchDetailQuestionUseCase()
-
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
     }
@@ -69,9 +57,7 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-                .add(ServerErrorDialogFragment.newInstance(), null)
-                .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     companion object {

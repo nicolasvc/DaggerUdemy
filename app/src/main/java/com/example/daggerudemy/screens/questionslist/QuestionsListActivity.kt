@@ -7,6 +7,7 @@ import com.example.daggerudemy.Constants
 import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
+import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import com.example.daggerudemy.screens.common.dialogs.ServerErrorDialogFragment
 import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
@@ -16,20 +17,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
     private lateinit var viewMvc: QuestionListViewMvc
-
     private var isDataLoaded = false
-
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = QuestionListViewMvc(LayoutInflater.from(this),null)
         fetchQuestionsUseCase = FetchQuestionsUseCase()
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
         setContentView(viewMvc.rootView)
-
-
     }
 
     override fun onStart() {
@@ -66,9 +64,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-                .add(ServerErrorDialogFragment.newInstance(), null)
-                .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     override fun onRefreshClicked() {

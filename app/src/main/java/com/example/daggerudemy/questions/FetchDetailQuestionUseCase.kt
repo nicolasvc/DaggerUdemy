@@ -44,12 +44,7 @@ class FetchDetailQuestionUseCase {
                     return@withContext Result.Failure
                 }
             }
-
-
         }
-
-
-
     }
 
 }
