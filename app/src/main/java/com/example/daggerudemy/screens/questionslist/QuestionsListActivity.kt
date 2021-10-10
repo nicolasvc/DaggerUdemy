@@ -7,6 +7,7 @@ import com.example.daggerudemy.Constants
 import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
+import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import com.example.daggerudemy.screens.common.dialogs.ServerErrorDialogFragment
 import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
@@ -21,12 +22,14 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
     private var isDataLoaded = false
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = QuestionListViewMvc(LayoutInflater.from(this),null)
         fetchQuestionsUseCase = FetchQuestionsUseCase()
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
         setContentView(viewMvc.rootView)
     }
 
@@ -72,7 +75,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
     }
 
     override fun onQuestionClicked(clickedQuestion: Question) {
-        QuestionDetailsActivity.start(this, clickedQuestion.id)
+        screensNavigator.toQuestionDetails(clickedQuestion.id)
     }
 
 

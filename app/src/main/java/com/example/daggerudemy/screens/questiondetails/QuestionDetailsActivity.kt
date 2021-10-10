@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
+import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 
@@ -16,6 +17,7 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
     private lateinit var questionDetailsMvc: QuestionDetailsMvc
     private lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -72,6 +75,6 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
 
 
     override fun onBackClicked() {
-       onBackPressed()
+        screensNavigator.navigateBack()
     }
 }
