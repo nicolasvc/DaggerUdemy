@@ -2,15 +2,15 @@ package com.example.daggerudemy.screens.questionslist
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.ScreensNavigator
+import com.example.daggerudemy.screens.common.activities.BaseActivity
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 
-class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener {
+class QuestionsListActivity : BaseActivity(), QuestionListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var viewMvc: QuestionListViewMvc
@@ -22,7 +22,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = QuestionListViewMvc(LayoutInflater.from(this), null)
-        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
+        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
         setContentView(viewMvc.rootView)

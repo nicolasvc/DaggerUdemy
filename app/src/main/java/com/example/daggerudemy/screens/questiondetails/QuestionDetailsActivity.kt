@@ -4,14 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
+import com.example.daggerudemy.screens.common.activities.BaseActivity
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 
-class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener {
+class QuestionDetailsActivity : BaseActivity(),QuestionDetailsMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionId: String
@@ -24,7 +23,7 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
         super.onCreate(savedInstanceState)
         questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
         setContentView(questionDetailsMvc.rootView)
-        fetchDetailQuestionUseCase = (application as MyApplication).fetchDetailQuestionUseCase
+        fetchDetailQuestionUseCase = compositionRoot.fetchDetailQuestionUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
