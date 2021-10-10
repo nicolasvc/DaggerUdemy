@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
@@ -23,7 +24,7 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
         super.onCreate(savedInstanceState)
         questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
         setContentView(questionDetailsMvc.rootView)
-        fetchDetailQuestionUseCase = FetchDetailQuestionUseCase()
+        fetchDetailQuestionUseCase = FetchDetailQuestionUseCase((application as MyApplication).stackoverflowApi)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!

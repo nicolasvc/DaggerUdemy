@@ -12,7 +12,9 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Clase que encapsula la logica del dominio
  * sera conocida como el caso de uso
  */
-class FetchQuestionsUseCase {
+class FetchQuestionsUseCase(
+    private val stackoverflowApi: StackoverflowApi
+) {
 
     /**
      * Clase sellada que contiene los dos objetos que puede retornar la consulta a retrofit
@@ -22,12 +24,6 @@ class FetchQuestionsUseCase {
         class Success(val questions: List<Question>) :Result()
         object Failure:Result()
     }
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val  stackoverflowApi: StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
     suspend fun fetchLatestQuestion() :Result {
         return withContext(Dispatchers.IO) {

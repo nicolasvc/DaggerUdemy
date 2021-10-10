@@ -1,14 +1,19 @@
 package com.example.daggerudemy.questions
 
-import com.example.daggerudemy.Constants
 import com.example.daggerudemy.networking.StackoverflowApi
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class FetchDetailQuestionUseCase {
+
+/**
+ * La clase recibe como parametro a retrofit el cual permite generar una DIAP(
+ * dependency inject archital pattern)
+ */
+class FetchDetailQuestionUseCase(
+    private val stackoverflowApi: StackoverflowApi
+) {
 
     /**
      * Clase sellada que contiene los dos objetos que puede retornar la consulta a retrofit
@@ -18,13 +23,6 @@ class FetchDetailQuestionUseCase {
         class Success(val questionBody: String) :Result()
         object Failure:Result()
     }
-    // init retrofit
-    val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    val stackoverflowApi: StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
 
     suspend fun fetchDetailQuestion(questionId:String):Result{

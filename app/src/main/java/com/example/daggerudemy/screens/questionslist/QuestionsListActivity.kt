@@ -1,9 +1,11 @@
 package com.example.daggerudemy.screens.questionslist
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.Constants
+import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
@@ -26,8 +28,9 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewMvc = QuestionListViewMvc(LayoutInflater.from(this),null)
-        fetchQuestionsUseCase = FetchQuestionsUseCase()
+        viewMvc = QuestionListViewMvc(LayoutInflater.from(this), null)
+        fetchQuestionsUseCase =
+            FetchQuestionsUseCase((application as MyApplication).stackoverflowApi)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
         setContentView(viewMvc.rootView)
@@ -50,16 +53,16 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
     private fun fetchQuestions() {
         coroutineScope.launch {
             viewMvc.showProgressIndication()
-            try{
+            try {
                 val result = fetchQuestionsUseCase.fetchLatestQuestion()
-                when(result){
-                    is FetchQuestionsUseCase.Result.Success ->{
+                when (result) {
+                    is FetchQuestionsUseCase.Result.Success -> {
                         viewMvc.bindQuestions(result.questions)
                         isDataLoaded = true
                     }
-                    is FetchQuestionsUseCase.Result.Failure-> onFetchFailed()
+                    is FetchQuestionsUseCase.Result.Failure -> onFetchFailed()
                 }
-            }finally {
+            } finally {
                 viewMvc.hideProgressIndication()
             }
 
