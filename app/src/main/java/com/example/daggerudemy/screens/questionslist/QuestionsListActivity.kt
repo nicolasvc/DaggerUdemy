@@ -1,21 +1,14 @@
 package com.example.daggerudemy.screens.questionslist
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.example.daggerudemy.Constants
 import com.example.daggerudemy.MyApplication
-import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
-import com.example.daggerudemy.screens.common.dialogs.ServerErrorDialogFragment
-import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener {
 
@@ -29,8 +22,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListViewMvc.Listener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = QuestionListViewMvc(LayoutInflater.from(this), null)
-        fetchQuestionsUseCase =
-            FetchQuestionsUseCase((application as MyApplication).stackoverflowApi)
+        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
         setContentView(viewMvc.rootView)

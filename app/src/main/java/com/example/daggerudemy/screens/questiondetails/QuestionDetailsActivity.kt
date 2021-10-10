@@ -24,7 +24,7 @@ class QuestionDetailsActivity : AppCompatActivity(),QuestionDetailsMvc.Listener 
         super.onCreate(savedInstanceState)
         questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
         setContentView(questionDetailsMvc.rootView)
-        fetchDetailQuestionUseCase = FetchDetailQuestionUseCase((application as MyApplication).stackoverflowApi)
+        fetchDetailQuestionUseCase = (application as MyApplication).fetchDetailQuestionUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
