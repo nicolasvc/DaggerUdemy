@@ -24,10 +24,10 @@ class QuestionDetailsActivity : BaseActivity(),QuestionDetailsMvc.Listener {
         questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
         setContentView(questionDetailsMvc.rootView)
         fetchDetailQuestionUseCase = compositionRoot.fetchDetailQuestionUseCase
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
-        screensNavigator = ScreensNavigator(this)
+        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onStart() {

@@ -1,7 +1,8 @@
 package com.example.daggerudemy.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
-import com.example.daggerudemy.MyApplication
+import com.example.daggerudemy.common.composition.ActivityCompositionRoot
+import com.example.daggerudemy.common.composition.AppCompositionRoot
 
 
 /**
@@ -11,6 +12,23 @@ import com.example.daggerudemy.MyApplication
  */
 open class BaseActivity : AppCompatActivity() {
 
-    val compositionRoot get() = (application as MyApplication).appCompositionRoot
+    /**
+     * Al crear la instancia del activity composition va a permitir
+     * crear un activity Scope estoy significa que la instancia solo se va a crear y destruir
+     * mientras la actividad este bien, evitando asi fugas de memoria, ya que si se inicializa
+     * en el application crear una instancia global lo que permitiria tener fugas
+     */
+    private val appCompositionRoot:AppCompositionRoot = AppCompositionRoot()
+
+    /**
+     * Se pasa como parametro la clase AppCompositionRoot a la clase de
+     * ActivityCompositioRoot el cual permite solo tener una sola instancia
+     * de composition root y asi tener una mejor abstracción
+     */
+    val compositionRoot by lazy {
+        ActivityCompositionRoot(this,appCompositionRoot)
+    }
+
+
 
 }

@@ -38,14 +38,11 @@ class AppCompositionRoot {
      * Propiedad que crea un objeto tipo retrofit con la capacidad de realizar consultas a
      * StackOverflow
      */
-    private val stackoverflowApi: StackoverflowApi by lazy { retrofit.create(StackoverflowApi::class.java) }
+    val stackoverflowApi: StackoverflowApi by lazy { retrofit.create(StackoverflowApi::class.java) }
 
-    /**
-     * Se hace uso de la palabra get para que cuando se se llame esta propiedad se cree la instancia y a su vez se destruya
-     * lo que va a evitar fugas de memoria y posibles crash
-     */
-    val fetchQuestionsUseCase get() = FetchQuestionsUseCase(stackoverflowApi)
 
-    val fetchDetailQuestionUseCase get() = FetchDetailQuestionUseCase(stackoverflowApi)
+
+
+
 
 }
