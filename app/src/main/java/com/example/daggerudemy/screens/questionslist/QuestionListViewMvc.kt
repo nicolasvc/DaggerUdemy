@@ -1,6 +1,5 @@
 package com.example.daggerudemy.screens.questionslist
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.example.daggerudemy.R
 import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.viewsmvc.BaseViewMvc
 import java.util.*
-import kotlin.collections.List
 
 /**
  * Clase encargada de renderizar la vista de una actividad en especifico

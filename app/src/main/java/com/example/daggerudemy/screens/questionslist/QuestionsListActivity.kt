@@ -18,7 +18,7 @@ class QuestionsListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_frame)
 
-      /*
+      /**
          Se crea esa validación ya que cuando savedInstanceState sea igual a null
           significa que se inicializara por primera ves la actividad lo que significa que
           se agrega el fragmento y cuando se rote el celular lo cual recreara una nueva instancia

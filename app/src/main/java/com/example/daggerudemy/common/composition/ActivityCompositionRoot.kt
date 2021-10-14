@@ -27,27 +27,17 @@ class ActivityCompositionRoot(
         ScreensNavigator(activity)
     }
 
-    private val layoutInflater get() =  LayoutInflater.from(activity)
-
-    val viewMvcFactory get() =  ViewMvcFactory(layoutInflater)
+    val layoutInflater: LayoutInflater get() =  LayoutInflater.from(activity)
 
     /**
      * Se extrae el supportFragmentManager de la actividad que se le esta pasando
      * */
 
-    private val fragmentManager get() = activity.supportFragmentManager
+    val fragmentManager get() = activity.supportFragmentManager
 
-    private val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
+    val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
 
-    /**
-     * Se hace uso de la palabra get para que cuando se se llame esta propiedad se cree la instancia y a su vez se destruya
-     * lo que va a evitar fugas de memoria y posibles crash
-     */
-    val fetchQuestionsUseCase get() = FetchQuestionsUseCase(stackoverflowApi)
 
-    val fetchDetailQuestionUseCase get() = FetchDetailQuestionUseCase(stackoverflowApi)
 
-    val dialogsNavigator by lazy {
-        DialogsNavigator(fragmentManager)
-    }
+
 }

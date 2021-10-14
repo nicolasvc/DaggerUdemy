@@ -10,7 +10,9 @@ import androidx.annotation.LayoutRes
 
 /**
  * Clase encargada de centralizar la vista base del MVC
- *
+ * @param layoutInflater parametro encargado de hacer el inflate a la vista
+ * @param parent parametro que permite el inflate a partir del layout que se pasa anteriormente
+ * @param layoutId parametro tipo layoutId encargado de inflate la vista
  */
 open class BaseViewMvc<LISTENER_TYPE>(
     layoutInflater: LayoutInflater,

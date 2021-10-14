@@ -3,7 +3,6 @@ package com.example.daggerudemy.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.activities.BaseActivity
@@ -14,20 +13,22 @@ class QuestionDetailsActivity : BaseActivity(),QuestionDetailsMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionId: String
-    private lateinit var questionDetailsMvc: QuestionDetailsMvc
     private lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
     private lateinit var screensNavigator: ScreensNavigator
 
+    private lateinit var questionDetailsMvc: QuestionDetailsMvc
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
-        setContentView(questionDetailsMvc.rootView)
+        questionDetailsMvc = compositionRoot.viewMvcFactory.newQuestionDetailesViewMvc(null)
         fetchDetailQuestionUseCase = compositionRoot.fetchDetailQuestionUseCase
         dialogsNavigator = compositionRoot.dialogsNavigator
-        // retrieve question ID passed from outside
-        questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
         screensNavigator = compositionRoot.screensNavigator
+
+        // Obtener data que se pasa entre actividades
+        questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
+        setContentView(questionDetailsMvc.rootView)
     }
 
     override fun onStart() {

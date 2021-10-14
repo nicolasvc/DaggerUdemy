@@ -24,13 +24,11 @@ class QuestionsListFragment : BaseFragment(), QuestionListViewMvc.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
         dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = compositionRoot.screensNavigator
 
     }
-
     /**
      * Para poder inicializar nuestro viewMvc se le debe pasa el container de la actividad que
      * lo esta llamando y asi asignarle un root view, Pero esto es una mala practica
