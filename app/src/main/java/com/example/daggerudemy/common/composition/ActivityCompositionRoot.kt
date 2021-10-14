@@ -1,10 +1,12 @@
 package com.example.daggerudemy.common.composition
 
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
+import com.example.daggerudemy.screens.common.viewsmvc.ViewMvcFactory
 
 
 /**
@@ -24,6 +26,10 @@ class ActivityCompositionRoot(
     val screensNavigator by lazy {
         ScreensNavigator(activity)
     }
+
+    private val layoutInflater get() =  LayoutInflater.from(activity)
+
+    val viewMvcFactory get() =  ViewMvcFactory(layoutInflater)
 
     /**
      * Se extrae el supportFragmentManager de la actividad que se le esta pasando
