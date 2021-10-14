@@ -3,6 +3,7 @@ package com.example.daggerudemy.screens.questionslist
 import android.os.Bundle
 import android.view.LayoutInflater
 import com.example.daggerudemy.MyApplication
+import com.example.daggerudemy.R
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.ScreensNavigator
@@ -10,68 +11,23 @@ import com.example.daggerudemy.screens.common.activities.BaseActivity
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 
-class QuestionsListActivity : BaseActivity(), QuestionListViewMvc.Listener {
+class QuestionsListActivity : BaseActivity() {
 
-    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private lateinit var viewMvc: QuestionListViewMvc
-    private var isDataLoaded = false
-    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewMvc = QuestionListViewMvc(LayoutInflater.from(this), null)
-        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
-        setContentView(viewMvc.rootView)
-    }
+        setContentView(R.layout.layout_frame)
 
-    override fun onStart() {
-        super.onStart()
-        viewMvc.registerListener(this)
-        if (!isDataLoaded) {
-            fetchQuestions()
+      /*
+         Se crea esa validación ya que cuando savedInstanceState sea igual a null
+          significa que se inicializara por primera ves la actividad lo que significa que
+          se agrega el fragmento y cuando se rote el celular lo cual recreara una nueva instancia
+          de la actividad android automaticamnete mantendra hara el commit del fragmento
+       */
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.frame_content, QuestionsListFragment())
+                .commit()
         }
     }
-
-    override fun onStop() {
-        super.onStop()
-        viewMvc.removeListener(this)
-        coroutineScope.coroutineContext.cancelChildren()
-    }
-
-    private fun fetchQuestions() {
-        coroutineScope.launch {
-            viewMvc.showProgressIndication()
-            try {
-                val result = fetchQuestionsUseCase.fetchLatestQuestion()
-                when (result) {
-                    is FetchQuestionsUseCase.Result.Success -> {
-                        viewMvc.bindQuestions(result.questions)
-                        isDataLoaded = true
-                    }
-                    is FetchQuestionsUseCase.Result.Failure -> onFetchFailed()
-                }
-            } finally {
-                viewMvc.hideProgressIndication()
-            }
-
-        }
-    }
-
-    private fun onFetchFailed() {
-        dialogsNavigator.showServerErrorDialog()
-    }
-
-    override fun onRefreshClicked() {
-        fetchQuestions()
-    }
-
-    override fun onQuestionClicked(clickedQuestion: Question) {
-        screensNavigator.toQuestionDetails(clickedQuestion.id)
-    }
-
-
 }
