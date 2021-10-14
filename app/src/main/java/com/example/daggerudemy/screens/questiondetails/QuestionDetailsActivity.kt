@@ -21,7 +21,7 @@ class QuestionDetailsActivity : BaseActivity(),QuestionDetailsMvc.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        questionDetailsMvc = QuestionDetailsMvc(LayoutInflater.from(this),null)
+        questionDetailsMvc = compositionRoot.viewMvcFactory.newQuestionDetailsViewMvc(null)
         setContentView(questionDetailsMvc.rootView)
         fetchDetailQuestionUseCase = compositionRoot.fetchDetailQuestionUseCase
         dialogsNavigator = compositionRoot.dialogsNavigator
