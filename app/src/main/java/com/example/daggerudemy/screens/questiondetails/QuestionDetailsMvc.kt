@@ -19,7 +19,7 @@ class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
 
     private val toolbar: MyToolbar
     private val swipeRefresh: SwipeRefreshLayout
-    private val txtQuestionBody: TextView
+    private val txtQuestionBody: TextView = findViewById(R.id.txt_question_body)
 
 
     interface Listener {
@@ -27,7 +27,6 @@ class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
     }
 
     init {
-        txtQuestionBody = findViewById(R.id.txt_question_body)
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
         //Se le agrega una acción a un objeto con base en el listener que se ha pasado

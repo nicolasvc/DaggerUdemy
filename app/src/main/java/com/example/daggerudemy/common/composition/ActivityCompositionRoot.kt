@@ -11,7 +11,7 @@ import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
  * Esta clase esta creadaa con el find en encapsular el scope del activity con las propiedades
  * que se pueden utilizar para evitar fugas de memoria ya que esta clase se inicializara y destruira
  * con el ciclo de vida de la actividad
- * @param activity se usa para poder inicializar la clase ScreensNavigator
+ * @param activity se usa para poder inicializar la clase ScreensNavigator  y extraer el el supportFragmentManager
  * @param appCompositionRoot se usa para poder obtener todos los atributos necesarios de esta clase e
  * implementarlo en la actividad
  *
