@@ -9,6 +9,7 @@ import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import com.example.daggerudemy.screens.common.fragments.BaseFragment
+import com.example.daggerudemy.screens.common.viewsmvc.ViewMvcFactory
 import kotlinx.coroutines.*
 /**
 Se pasa toda la logica a este fragmento  que contenia la vista en si misma
@@ -18,16 +19,14 @@ class QuestionsListFragment : BaseFragment(), QuestionListViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var viewMvc: QuestionListViewMvc
     private var isDataLoaded = false
-    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
-
+        injector.inject(this)
     }
     /**
      * Para poder inicializar nuestro viewMvc se le debe pasa el container de la actividad que
@@ -41,7 +40,7 @@ class QuestionsListFragment : BaseFragment(), QuestionListViewMvc.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewMvc = compositionRoot.viewMvcFactory.newQuestionedListViewMvc(container)
+        viewMvc = viewMvcFactory.newQuestionedListViewMvc(container)
         return viewMvc.rootView
     }
 

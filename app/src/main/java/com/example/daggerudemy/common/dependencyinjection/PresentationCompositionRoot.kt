@@ -1,4 +1,4 @@
-package com.example.daggerudemy.common.composition
+package com.example.daggerudemy.common.dependencyinjection
 
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.questions.FetchQuestionsUseCase

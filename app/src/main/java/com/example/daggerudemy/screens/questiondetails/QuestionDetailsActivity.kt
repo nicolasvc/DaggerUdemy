@@ -7,24 +7,25 @@ import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.activities.BaseActivity
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
+import com.example.daggerudemy.screens.common.viewsmvc.ViewMvcFactory
 import kotlinx.coroutines.*
 
-class QuestionDetailsActivity : BaseActivity(),QuestionDetailsMvc.Listener {
+class QuestionDetailsActivity : BaseActivity(), QuestionDetailsMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionId: String
-    private lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+    lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var questionDetailsMvc: QuestionDetailsMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
-        questionDetailsMvc = compositionRoot.viewMvcFactory.newQuestionDetailesViewMvc(null)
-        fetchDetailQuestionUseCase = compositionRoot.fetchDetailQuestionUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
+        questionDetailsMvc = viewMvcFactory.newQuestionDetailesViewMvc(null)
+
 
         // Obtener data que se pasa entre actividades
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
@@ -48,11 +49,11 @@ class QuestionDetailsActivity : BaseActivity(),QuestionDetailsMvc.Listener {
             questionDetailsMvc.showProgressIndication()
             try {
                 val result = fetchDetailQuestionUseCase.fetchDetailQuestion(questionId)
-                when(result){
-                    is FetchDetailQuestionUseCase.Result.Success->{
+                when (result) {
+                    is FetchDetailQuestionUseCase.Result.Success -> {
                         questionDetailsMvc.showData(result.questionBody)
                     }
-                    is FetchDetailQuestionUseCase.Result.Failure->  onFetchFailed()
+                    is FetchDetailQuestionUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
                 questionDetailsMvc.hideProgressIndication()
@@ -72,7 +73,6 @@ class QuestionDetailsActivity : BaseActivity(),QuestionDetailsMvc.Listener {
             context.startActivity(intent)
         }
     }
-
 
 
     override fun onBackClicked() {

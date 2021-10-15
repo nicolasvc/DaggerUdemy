@@ -1,7 +1,7 @@
 package com.example.daggerudemy
 
 import android.app.Application
-import com.example.daggerudemy.common.composition.AppCompositionRoot
+import com.example.daggerudemy.common.dependencyinjection.AppCompositionRoot
 
 /**
  * Cuando se crea una propiedad dentro la clase aplicación permitiria acceder en cualquier
@@ -16,7 +16,7 @@ class MyApplication: Application() {
    lateinit var appCompositionRoot : AppCompositionRoot
 
     override fun onCreate() {
-        appCompositionRoot = AppCompositionRoot()
+        appCompositionRoot = AppCompositionRoot(this)
         super.onCreate()
     }
 

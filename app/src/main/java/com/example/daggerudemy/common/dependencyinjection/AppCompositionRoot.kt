@@ -1,10 +1,9 @@
-package com.example.daggerudemy.common.composition
+package com.example.daggerudemy.common.dependencyinjection
 
 import androidx.annotation.UiThread
 import com.example.daggerudemy.Constants
+import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.networking.StackoverflowApi
-import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
-import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -15,11 +14,14 @@ import retrofit2.converter.gson.GsonConverterFactory
  *
  * el decorador de UiThread obliga a que cualquier clase que haga uso de la clase debe ser llamada en el
  * UiThread
+ *
+ * @param Application se pasa con el fin de poder obtener el contexto en los cosos que servicios requieran el uso
+ * de context
  */
 
 
 @UiThread
-class AppCompositionRoot {
+class AppCompositionRoot(val application: MyApplication) {
     /**
      * Propiedad que realiza un Build a un objeto de Retrofit y valida que solo se cree una sola instancia cuando
      * se tenga que usar y asi reducir el tiempo de iniciación de la aplicación

@@ -39,7 +39,6 @@ class QuestionListViewMvc(layoutInflater: LayoutInflater, parent: ViewGroup?
 
 
     init {
-        // init pull-down-to-refresh
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             for (listener in listeners) {

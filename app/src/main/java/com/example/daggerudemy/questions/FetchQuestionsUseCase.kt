@@ -17,11 +17,12 @@ class FetchQuestionsUseCase(
 ) {
 
     /**
-     * Clase sellada que contiene los dos objetos que puede retornar la consulta a retrofit
-     * Exitoso o fallido
+     * Clase sellada que contiene los dos tipos de respuesta exitoso o fallido
+     * en el caso de exitoso se hara uso de data class que signifia que exportara la data
+     * y en el caso de fallido retornada un objeto
      */
     sealed class Result{
-        class Success(val questions: List<Question>) :Result()
+        data class Success(val questions: List<Question>) :Result()
         object Failure:Result()
     }
 
