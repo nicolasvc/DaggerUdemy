@@ -10,10 +10,10 @@ import java.lang.reflect.Field
 /**
  * Clase encargada de extraer la responsabilidad de la inyeccion a la clase en el cual se usan
  * multiples servicios
- * @param compositionRoot clase que contiene todos los servicios necesarios inicializados
+ * @param module clase que contiene todos los servicios necesarios inicializados
  * para asignarlo a los atributos de clases
  */
-class Injector(private val compositionRoot: PresentationCompositionRoot) {
+class Injector(private val module: PresentationModule) {
 
     /**
      * Metodo encargado de injectar las propiedades de las clases que cumplan con el annotation Service
@@ -71,22 +71,22 @@ class Injector(private val compositionRoot: PresentationCompositionRoot) {
     private fun getServiceForClass(type: Class<*>?): Any {
         when (type) {
             DialogsNavigator::class.java -> {
-                return compositionRoot.dialogsNavigator
+                return module.dialogsNavigator
             }
             ScreensNavigator::class.java -> {
-                return compositionRoot.screensNavigator
+                return module.screensNavigator
             }
 
             FetchQuestionsUseCase::class.java -> {
-                return compositionRoot.fetchQuestionsUseCase
+                return module.fetchQuestionsUseCase
             }
 
             FetchDetailQuestionUseCase::class.java -> {
-                return compositionRoot.fetchDetailQuestionUseCase
+                return module.fetchDetailQuestionUseCase
             }
 
             ViewMvcFactory::class.java -> {
-                return compositionRoot.viewMvcFactory
+                return module.viewMvcFactory
             }
             else -> {
                 throw Exception("unsupported service type : $type")

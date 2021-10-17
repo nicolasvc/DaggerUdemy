@@ -3,9 +3,8 @@ package com.example.daggerudemy.screens.common.activities
 import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.common.dependencyinjection.ActivityCompositionRoot
-import com.example.daggerudemy.common.dependencyinjection.AppCompositionRoot
 import com.example.daggerudemy.common.dependencyinjection.Injector
-import com.example.daggerudemy.common.dependencyinjection.PresentationCompositionRoot
+import com.example.daggerudemy.common.dependencyinjection.PresentationModule
 
 
 /**
@@ -32,7 +31,7 @@ open class BaseActivity : AppCompatActivity() {
      * ActivityCompositioRoot el cual permite solo tener una sola instancia
      * de composition root y asi tener una mejor abstracción
      */
-    private val compositionRoot by lazy { PresentationCompositionRoot(activityCompositionRoot) }
+    private val compositionRoot by lazy { PresentationModule(activityCompositionRoot) }
 
     protected val injector get() = Injector(compositionRoot)
 
