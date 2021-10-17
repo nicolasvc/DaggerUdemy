@@ -15,7 +15,7 @@ import com.example.daggerudemy.screens.common.ScreensNavigator
  *
  */
 class ActivityCompositionRoot(
-    private val activity: AppCompatActivity,
+    val activity: AppCompatActivity,
     private val appCompositionRoot: AppCompositionRoot
 ) {
 

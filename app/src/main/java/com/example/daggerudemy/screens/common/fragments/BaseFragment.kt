@@ -2,7 +2,7 @@ package com.example.daggerudemy.screens.common.fragments
 
 import androidx.fragment.app.Fragment
 import com.example.daggerudemy.common.dependencyinjection.Injector
-import com.example.daggerudemy.common.dependencyinjection.PresentationModule
+import com.example.daggerudemy.common.dependencyinjection.PresentationComponentRoot
 import com.example.daggerudemy.screens.common.activities.BaseActivity
 
 
@@ -15,7 +15,7 @@ open class BaseFragment : Fragment() {
      * se podra acceder al compositionRoot
      */
     private val compositionRoot
-            by lazy { PresentationModule((requireActivity() as BaseActivity).activityCompositionRoot) }
+            by lazy { PresentationComponentRoot((requireActivity() as BaseActivity).activityCompositionRoot) }
 
     protected val injector get() = Injector(compositionRoot)
 
