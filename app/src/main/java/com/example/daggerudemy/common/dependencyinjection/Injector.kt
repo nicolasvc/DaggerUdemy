@@ -10,10 +10,10 @@ import java.lang.reflect.Field
 /**
  * Clase encargada de extraer la responsabilidad de la inyeccion a la clase en el cual se usan
  * multiples servicios
- * @param componentRoot clase que contiene todos los servicios necesarios inicializados
+ * @param module clase que contiene todos los servicios necesarios inicializados
  * para asignarlo a los atributos de clases
  */
-class Injector(private val componentRoot: PresentationComponentRoot) {
+class Injector(private val component: PresentationComponent) {
 
     /**
      * Metodo encargado de injectar las propiedades de las clases que cumplan con el annotation Service
@@ -68,31 +68,26 @@ class Injector(private val componentRoot: PresentationComponentRoot) {
      * @param type parametro que contiene el tipo de clase
      * @return Any
      */
-    private fun getServiceForClass(type: Class<*>?): Any {
+    private fun getServiceForClass(type: Class<*>): Any {
         when (type) {
             DialogsNavigator::class.java -> {
-                return componentRoot.dialogsNavigator
+                return component.dialogsNavigator()
             }
             ScreensNavigator::class.java -> {
-                return componentRoot.screensNavigator
+                return component.screensNavigator()
             }
-
             FetchQuestionsUseCase::class.java -> {
-                return componentRoot.fetchQuestionsUseCase
+                return component.fetchQuestionsUseCase()
             }
-
             FetchDetailQuestionUseCase::class.java -> {
-                return componentRoot.fetchQuestionDetailsUseCase
+                return component.fetchQuestionDetailsUseCase()
             }
-
             ViewMvcFactory::class.java -> {
-                return componentRoot.viewMvcFactory
+                return component.viewMvcFactory()
             }
             else -> {
-                throw Exception("unsupported service type : $type")
+                throw Exception("unsupported service type: $type")
             }
-
-
         }
     }
 
