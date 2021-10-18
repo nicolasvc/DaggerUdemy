@@ -2,11 +2,11 @@ package com.example.daggerudemy.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.MyApplication
-import com.example.daggerudemy.common.dependencyinjection.ActivityCompositionRoot
+import com.example.daggerudemy.common.activityinjection.ActivityModule
+import com.example.daggerudemy.common.activityinjection.DaggerActivityComponent
 import com.example.daggerudemy.common.dependencyinjection.DaggerPresentationComponent
 import com.example.daggerudemy.common.dependencyinjection.Injector
 import com.example.daggerudemy.common.dependencyinjection.PresentationModule
-
 
 /**
  * Clase que sera encargada de definir la actividad base y a su vez poder
@@ -21,12 +21,13 @@ open class BaseActivity : AppCompatActivity() {
      * mientras la actividad este bien, evitando asi fugas de memoria, ya que si se inicializa
      * en el application crear una instancia global lo que permitiria tener fugas
      */
-    private val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
+    private val appCompositionRoot get() = (application as MyApplication).appComponent
 
     val activityCompositionRoot by lazy {
-        ActivityCompositionRoot(this, appCompositionRoot)
+        DaggerActivityComponent.builder()
+            .activityModule(ActivityModule(this,appCompositionRoot))
+            .build()
     }
-
     /**
      * Se pasa como parametro la clase AppCompositionRoot a la clase de
      * ActivityCompositioRoot el cual permite solo tener una sola instancia

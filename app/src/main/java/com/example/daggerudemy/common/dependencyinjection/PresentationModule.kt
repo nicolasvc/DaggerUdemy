@@ -2,6 +2,8 @@ package com.example.daggerudemy.common.dependencyinjection
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
+import com.example.daggerudemy.common.activityinjection.ActivityComponent
+import com.example.daggerudemy.common.activityinjection.ActivityModule
 import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
@@ -14,25 +16,25 @@ import dagger.Provides
 /**
  * Esta clase esta creada con el fin de poder agregar los servicios necesarios que necesita la actividad
  * ya que asi se mantendra la clase activityCompositionRoot de una forma mas limpia y clara
- * @param activityCompositionRoot clase que contiene los parametros necesarios para poder acceder e inicializar los servicios
+ * @param activityModule clase que contiene los parametros necesarios para poder acceder e inicializar los servicios
  */
 @Module
-class PresentationModule(private val activityCompositionRoot: ActivityCompositionRoot) {
+class PresentationModule(private val activityModule: ActivityComponent) {
 
     @Provides
-    fun layoutInflater() = activityCompositionRoot.layoutInflater
+    fun layoutInflater() = activityModule.layoutInflater()
 
     @Provides
-    fun fragmentManager() = activityCompositionRoot.fragmentManager
+    fun fragmentManager() = activityModule.fragmentManager()
 
     @Provides
-    fun stackoverflowApi() = activityCompositionRoot.stackoverflowApi
+    fun stackoverflowApi() = activityModule.stackoverflowApi()
 
     @Provides
-    fun activity() = activityCompositionRoot.activity
+    fun activity() = activityModule.activity()
 
     @Provides
-    fun screensNavigator() = activityCompositionRoot.screensNavigator
+    fun screensNavigator() = activityModule.screensNavigator()
 
     @Provides
     fun viewMvcFactory(layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)

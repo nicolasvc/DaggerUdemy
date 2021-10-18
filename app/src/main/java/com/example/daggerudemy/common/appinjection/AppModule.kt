@@ -1,9 +1,12 @@
-package com.example.daggerudemy.common.dependencyinjection
+package com.example.daggerudemy.common.appinjection
 
+import android.app.Application
 import androidx.annotation.UiThread
 import com.example.daggerudemy.Constants
 import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.networking.StackoverflowApi
+import dagger.Module
+import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -20,8 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 
 
-@UiThread
-class AppCompositionRoot(val application: MyApplication) {
+@Module
+class AppModule(val application: Application) {
     /**
      * Propiedad que realiza un Build a un objeto de Retrofit y valida que solo se cree una sola instancia cuando
      * se tenga que usar y asi reducir el tiempo de iniciación de la aplicación
@@ -35,16 +38,16 @@ class AppCompositionRoot(val application: MyApplication) {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
     /**
      * Propiedad que crea un objeto tipo retrofit con la capacidad de realizar consultas a
      * StackOverflow
      */
     val stackoverflowApi: StackoverflowApi by lazy { retrofit.create(StackoverflowApi::class.java) }
 
+    @Provides
+    fun application() = application
 
-
-
-
+    @Provides
+    fun stackoverflowApi() = stackoverflowApi
 
 }
