@@ -1,9 +1,8 @@
-package com.example.daggerudemy.common.dependencyinjection
+package com.example.daggerudemy.common.depedencyinjection.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
-import com.example.daggerudemy.common.activityinjection.ActivityComponent
-import com.example.daggerudemy.common.activityinjection.ActivityModule
+import com.example.daggerudemy.common.depedencyinjection.activity.ActivityComponent
 import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.questions.FetchQuestionsUseCase

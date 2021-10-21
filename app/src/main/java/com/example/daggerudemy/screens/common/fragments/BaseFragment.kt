@@ -1,9 +1,8 @@
 package com.example.daggerudemy.screens.common.fragments
 
 import androidx.fragment.app.Fragment
-import com.example.daggerudemy.common.dependencyinjection.DaggerPresentationComponent
-import com.example.daggerudemy.common.Injector
-import com.example.daggerudemy.common.dependencyinjection.PresentationModule
+import com.example.daggerudemy.common.depedencyinjection.presentation.DaggerPresentationComponent
+import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationModule
 import com.example.daggerudemy.screens.common.activities.BaseActivity
 
 
@@ -25,7 +24,7 @@ open class BaseFragment : Fragment() {
             .build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 
 
 }

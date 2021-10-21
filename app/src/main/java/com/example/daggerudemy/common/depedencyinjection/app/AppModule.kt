@@ -1,15 +1,12 @@
-package com.example.daggerudemy.common.appinjection
+package com.example.daggerudemy.common.depedencyinjection.app
 
 import android.app.Application
-import androidx.annotation.UiThread
 import com.example.daggerudemy.Constants
-import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.networking.StackoverflowApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 /**
  * Clase que contiene las propiedades, inicializaciones de casos de usos

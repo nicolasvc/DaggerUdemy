@@ -1,8 +1,8 @@
-package com.example.daggerudemy.common.activityinjection
+package com.example.daggerudemy.common.depedencyinjection.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.example.daggerudemy.common.appinjection.AppComponent
+import com.example.daggerudemy.common.depedencyinjection.app.AppComponent
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import dagger.Module
 import dagger.Provides

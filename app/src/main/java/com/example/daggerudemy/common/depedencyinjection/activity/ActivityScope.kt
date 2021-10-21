@@ -1,4 +1,4 @@
-package com.example.daggerudemy.common.activityinjection
+package com.example.daggerudemy.common.depedencyinjection.activity
 
 import javax.inject.Scope
 

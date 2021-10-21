@@ -2,15 +2,13 @@ package com.example.daggerudemy.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.MyApplication
-import com.example.daggerudemy.common.activityinjection.ActivityModule
-import com.example.daggerudemy.common.activityinjection.DaggerActivityComponent
-import com.example.daggerudemy.common.dependencyinjection.DaggerPresentationComponent
-import com.example.daggerudemy.common.Injector
-import com.example.daggerudemy.common.dependencyinjection.PresentationModule
-
+import com.example.daggerudemy.common.depedencyinjection.activity.ActivityModule
+import com.example.daggerudemy.common.depedencyinjection.activity.DaggerActivityComponent
+import com.example.daggerudemy.common.depedencyinjection.presentation.DaggerPresentationComponent
+import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationModule
 /**
  * Clase que sera encargada de definir la actividad base y a su vez poder
- * extraer la clase [com.example.daggerudemy.common.dependencyinjection] de la aplicación
+ * extraer la clase [com.example.daggerudemy.common.presentation] de la aplicación
  * y asi generar un mejor encapsulamiento
  */
 open class BaseActivity : AppCompatActivity() {
@@ -39,7 +37,7 @@ open class BaseActivity : AppCompatActivity() {
             .build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.daggerudemy.common.activityinjection
+package com.example.daggerudemy.common.depedencyinjection.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity

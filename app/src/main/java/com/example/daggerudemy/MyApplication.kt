@@ -1,8 +1,8 @@
 package com.example.daggerudemy
 
 import android.app.Application
-import com.example.daggerudemy.common.appinjection.AppModule
-import com.example.daggerudemy.common.appinjection.DaggerAppComponent
+import com.example.daggerudemy.common.depedencyinjection.app.AppModule
+import com.example.daggerudemy.common.depedencyinjection.app.DaggerAppComponent
 
 /**
  * Cuando se crea una propiedad dentro la clase aplicación permitiria acceder en cualquier
