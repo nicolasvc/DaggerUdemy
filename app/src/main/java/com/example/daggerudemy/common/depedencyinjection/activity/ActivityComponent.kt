@@ -3,6 +3,7 @@ package com.example.daggerudemy.common.depedencyinjection.activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.example.daggerudemy.common.depedencyinjection.app.AppComponent
 import com.example.daggerudemy.networking.StackoverflowApi
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import dagger.Component
@@ -12,7 +13,7 @@ import dagger.Component
  * y su respectivo objeto de retorno, aca no van con el mismo annotaded de @provides
  */
 @ActivityScope
-@Component(modules = [ActivityModule::class])
+@Component(dependencies=[AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
 
     fun screensNavigator(): ScreensNavigator

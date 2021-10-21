@@ -2,7 +2,6 @@ package com.example.daggerudemy.common.depedencyinjection.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.example.daggerudemy.common.depedencyinjection.app.AppComponent
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import dagger.Module
 import dagger.Provides
@@ -19,30 +18,22 @@ import dagger.Provides
  */
 @Module
 class ActivityModule(
-    val activity: AppCompatActivity,
-    private val appComponent: AppComponent
+    private val activity: AppCompatActivity
 ) {
-
-
-
     @Provides
     fun activity() = activity
 
-    @Provides
-    fun application() = appComponent.application()
 
     @Provides
     @ActivityScope
     fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 
     @Provides
-    fun layoutInflater(): LayoutInflater = LayoutInflater.from(activity)
+    fun layoutInflater(activity: AppCompatActivity): LayoutInflater = LayoutInflater.from(activity)
 
     @Provides
     fun fragmentManager() = activity.supportFragmentManager
 
-    @Provides
-    fun stackoverflowApi() = appComponent.stackoverflowApi()
 
 
 

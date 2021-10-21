@@ -18,22 +18,8 @@ import dagger.Provides
  * @param activityModule clase que contiene los parametros necesarios para poder acceder e inicializar los servicios
  */
 @Module
-class PresentationModule(private val activityModule: ActivityComponent) {
+class PresentationModule {
 
-    @Provides
-    fun layoutInflater() = activityModule.layoutInflater()
-
-    @Provides
-    fun fragmentManager() = activityModule.fragmentManager()
-
-    @Provides
-    fun stackoverflowApi() = activityModule.stackoverflowApi()
-
-    @Provides
-    fun activity() = activityModule.activity()
-
-    @Provides
-    fun screensNavigator() = activityModule.screensNavigator()
 
     @Provides
     fun viewMvcFactory(layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)

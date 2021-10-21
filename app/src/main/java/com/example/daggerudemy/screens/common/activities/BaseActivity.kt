@@ -23,7 +23,8 @@ open class BaseActivity : AppCompatActivity() {
 
     val activityCompositionRoot by lazy {
         DaggerActivityComponent.builder()
-            .activityModule(ActivityModule(this,appCompositionRoot))
+            .appComponent(appCompositionRoot)
+            .activityModule(ActivityModule(this))
             .build()
     }
     /**
@@ -33,7 +34,8 @@ open class BaseActivity : AppCompatActivity() {
      */
     private val presentationComponent by lazy {
         DaggerPresentationComponent.builder()
-            .presentationModule(PresentationModule(activityCompositionRoot))
+            .activityComponent(activityCompositionRoot)
+            .presentationModule(PresentationModule())
             .build()
     }
 
