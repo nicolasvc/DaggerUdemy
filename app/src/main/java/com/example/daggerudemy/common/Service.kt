@@ -1,4 +1,4 @@
-package com.example.daggerudemy.common.dependencyinjection
+package com.example.daggerudemy.common
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)

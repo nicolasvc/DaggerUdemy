@@ -3,7 +3,7 @@ package com.example.daggerudemy.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.example.daggerudemy.common.dependencyinjection.Service
+import com.example.daggerudemy.common.Service
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.activities.BaseActivity
@@ -16,10 +16,14 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionId: String
 
-    @field:Service private lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
+    @field:Service
+    private lateinit var fetchDetailQuestionUseCase: FetchDetailQuestionUseCase
+    @field:Service
+    private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service
+    private lateinit var screensNavigator: ScreensNavigator
+    @field:Service
+    private lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var questionDetailsMvc: QuestionDetailsMvc
 

@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * Clase que contiene las propiedades, inicializaciones de casos de usos
@@ -32,22 +33,21 @@ class AppModule(val application: Application) {
      * y asi cuando se use por primera vez se creara la instancia y cuando se tenga que usar de nuevo se retorna la instancia que
      * se creo inicialmente
      */
-    private val retrofit: Retrofit by lazy {
+
+    @Provides
+    @AppScope
+    fun retrofit() : Retrofit =
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-    /**
-     * Propiedad que crea un objeto tipo retrofit con la capacidad de realizar consultas a
-     * StackOverflow
-     */
-    val stackoverflowApi: StackoverflowApi by lazy { retrofit.create(StackoverflowApi::class.java) }
 
     @Provides
     fun application() = application
 
+
     @Provides
-    fun stackoverflowApi() = stackoverflowApi
+    @AppScope
+    fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
 }

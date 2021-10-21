@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.daggerudemy.common.dependencyinjection.Service
+import com.example.daggerudemy.common.Service
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.ScreensNavigator
@@ -21,10 +21,14 @@ class QuestionsListFragment : BaseFragment(), QuestionListViewMvc.Listener {
     private lateinit var viewMvc: QuestionListViewMvc
     private var isDataLoaded = false
 
-    @field:Service private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
+    @field:Service
+    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @field:Service
+    private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service
+    private lateinit var screensNavigator: ScreensNavigator
+    @field:Service
+    private lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

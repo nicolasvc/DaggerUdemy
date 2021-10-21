@@ -5,7 +5,7 @@ import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.common.activityinjection.ActivityModule
 import com.example.daggerudemy.common.activityinjection.DaggerActivityComponent
 import com.example.daggerudemy.common.dependencyinjection.DaggerPresentationComponent
-import com.example.daggerudemy.common.dependencyinjection.Injector
+import com.example.daggerudemy.common.Injector
 import com.example.daggerudemy.common.dependencyinjection.PresentationModule
 
 /**

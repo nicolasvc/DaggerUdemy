@@ -1,5 +1,6 @@
-package com.example.daggerudemy.common.dependencyinjection
+package com.example.daggerudemy.common
 
+import com.example.daggerudemy.common.dependencyinjection.PresentationComponent
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator

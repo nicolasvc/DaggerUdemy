@@ -11,6 +11,7 @@ import dagger.Component
  * Aca se determina las funciones las cuales esta determinadas en el modulo
  * y su respectivo objeto de retorno, aca no van con el mismo annotaded de @provides
  */
+@ActivityScope
 @Component(modules = [ActivityModule::class])
 interface ActivityComponent {
 
