@@ -1,9 +1,8 @@
 package com.example.daggerudemy.common.depedencyinjection.presentation
 
-import com.example.daggerudemy.common.depedencyinjection.activity.ActivityComponent
 import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
 import com.example.daggerudemy.screens.questionslist.QuestionsListFragment
-import dagger.Component
+import dagger.Subcomponent
 
 
 /**
@@ -16,8 +15,19 @@ import dagger.Component
 /**
  * Los componentes pueden tener dependenicas de otros componentes
  */
+
+/**
+ * Para crear un SubComponent se debe hacer uso de @Subcomponent esta anotacion
+ * no recibe depedencias debido a que se obtendra por todos los servicios expuesto
+ * por el padre.
+ * El componente padre ActivityComponente expone una fabrica que retorna el componente
+ * La fabrica siempre recibe los modulos del subcomponent
+ * Los subcomponents tienen acceso a todos los servicios provisto por el padre
+ */
+
+
 @PresentationScope
-@Component(dependencies = [ActivityComponent::class], modules = [PresentationModule::class])
+@Subcomponent(modules = [PresentationModule::class])
 interface PresentationComponent {
 
     fun inject(fragmentQuestionListaFragment: QuestionsListFragment)

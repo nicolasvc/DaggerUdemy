@@ -1,11 +1,8 @@
 package com.example.daggerudemy.common.depedencyinjection.activity
 
-import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import com.example.daggerudemy.common.depedencyinjection.app.AppComponent
-import com.example.daggerudemy.networking.StackoverflowApi
-import com.example.daggerudemy.screens.common.ScreensNavigator
+import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationComponent
+import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationModule
 import dagger.Component
 
 /**
@@ -16,14 +13,6 @@ import dagger.Component
 @Component(dependencies=[AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
 
-    fun screensNavigator(): ScreensNavigator
-
-    fun layoutInflater(): LayoutInflater
-
-    fun fragmentManager(): FragmentManager
-
-    fun stackoverflowApi(): StackoverflowApi
-
-    fun activity(): AppCompatActivity
+    fun newPresentationComponent(presentationModule: PresentationModule):PresentationComponent
 
 }

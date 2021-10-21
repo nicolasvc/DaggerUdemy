@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.common.depedencyinjection.activity.ActivityModule
 import com.example.daggerudemy.common.depedencyinjection.activity.DaggerActivityComponent
-import com.example.daggerudemy.common.depedencyinjection.presentation.DaggerPresentationComponent
 import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationModule
 /**
  * Clase que sera encargada de definir la actividad base y a su vez poder
@@ -33,10 +32,7 @@ open class BaseActivity : AppCompatActivity() {
      * de composition root y asi tener una mejor abstracción
      */
     private val presentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-            .activityComponent(activityCompositionRoot)
-            .presentationModule(PresentationModule())
-            .build()
+        activityCompositionRoot.newPresentationComponent(PresentationModule())
     }
 
     protected val injector get() = presentationComponent
