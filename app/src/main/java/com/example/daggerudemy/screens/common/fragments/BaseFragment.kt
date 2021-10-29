@@ -1,7 +1,6 @@
 package com.example.daggerudemy.screens.common.fragments
 
 import androidx.fragment.app.Fragment
-import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationModule
 import com.example.daggerudemy.screens.common.activities.BaseActivity
 
 
@@ -18,7 +17,7 @@ open class BaseFragment : Fragment() {
      * Se hace uso de la clase autogenerada por dagger
      */
     private val presentationComponent by lazy {
-        (requireActivity() as BaseActivity).activityCompositionRoot.newPresentationComponent(PresentationModule())
+        (requireActivity() as BaseActivity).activityCompositionRoot.newPresentationComponent()
 
     }
 

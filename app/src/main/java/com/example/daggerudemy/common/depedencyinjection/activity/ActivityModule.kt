@@ -12,8 +12,6 @@ import dagger.Provides
  * que se pueden utilizar para evitar fugas de memoria ya que esta clase se inicializara y destruira
  * con el ciclo de vida de la actividad
  * @param activity se usa para poder inicializar la clase ScreensNavigator  y extraer el el supportFragmentManager
- * @param appComponent se usa para poder obtener todos los atributos necesarios de esta clase e
- * implementarlo en la actividad
  *
  */
 @Module
@@ -23,10 +21,9 @@ class ActivityModule(
     @Provides
     fun activity() = activity
 
-
     @Provides
     @ActivityScope
-    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
+    fun screenNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 
     @Provides
     fun layoutInflater(activity: AppCompatActivity): LayoutInflater = LayoutInflater.from(activity)

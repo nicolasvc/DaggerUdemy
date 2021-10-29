@@ -3,6 +3,7 @@ package com.example.daggerudemy.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.activities.BaseActivity
@@ -32,6 +33,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsMvc.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
+        Log.e("QuestionListActivity","$screensNavigator")
         super.onCreate(savedInstanceState)
         questionDetailsMvc = viewMvcFactory.newQuestionDetailesViewMvc(null)
 

@@ -3,8 +3,7 @@ package com.example.daggerudemy.screens.common.activities
 import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.common.depedencyinjection.activity.ActivityModule
-import com.example.daggerudemy.common.depedencyinjection.activity.DaggerActivityComponent
-import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationModule
+
 /**
  * Clase que sera encargada de definir la actividad base y a su vez poder
  * extraer la clase [com.example.daggerudemy.common.presentation] de la aplicación
@@ -21,10 +20,7 @@ open class BaseActivity : AppCompatActivity() {
     private val appCompositionRoot get() = (application as MyApplication).appComponent
 
     val activityCompositionRoot by lazy {
-        DaggerActivityComponent.builder()
-            .appComponent(appCompositionRoot)
-            .activityModule(ActivityModule(this))
-            .build()
+        appCompositionRoot.newActivityComponent(ActivityModule(this))
     }
     /**
      * Se pasa como parametro la clase AppCompositionRoot a la clase de
@@ -32,7 +28,7 @@ open class BaseActivity : AppCompatActivity() {
      * de composition root y asi tener una mejor abstracción
      */
     private val presentationComponent by lazy {
-        activityCompositionRoot.newPresentationComponent(PresentationModule())
+        activityCompositionRoot.newPresentationComponent()
     }
 
     protected val injector get() = presentationComponent

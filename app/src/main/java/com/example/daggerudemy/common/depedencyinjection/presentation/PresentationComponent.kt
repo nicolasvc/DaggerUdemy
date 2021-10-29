@@ -1,6 +1,7 @@
 package com.example.daggerudemy.common.depedencyinjection.presentation
 
 import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
+import com.example.daggerudemy.screens.questionslist.QuestionsListActivity
 import com.example.daggerudemy.screens.questionslist.QuestionsListFragment
 import dagger.Subcomponent
 
@@ -27,10 +28,12 @@ import dagger.Subcomponent
 
 
 @PresentationScope
-@Subcomponent(modules = [PresentationModule::class])
+@Subcomponent
 interface PresentationComponent {
 
     fun inject(fragmentQuestionListaFragment: QuestionsListFragment)
 
     fun inject(activityQuestionDetail: QuestionDetailsActivity)
+
+    fun inject(questionsListActivity: QuestionsListActivity)
 }

@@ -1,6 +1,7 @@
 package com.example.daggerudemy.screens.questionslist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.R
@@ -10,11 +11,16 @@ import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.activities.BaseActivity
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class QuestionsListActivity : BaseActivity() {
 
 
+    @Inject lateinit var screensNavigator: ScreensNavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
+        Log.e("QuestionListActivity","$screensNavigator")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_frame)
 

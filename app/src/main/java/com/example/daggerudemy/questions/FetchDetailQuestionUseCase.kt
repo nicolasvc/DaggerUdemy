@@ -5,13 +5,14 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import javax.inject.Inject
 
 
 /**
  * La clase recibe como parametro a retrofit el cual permite generar una DIAP(
  * dependency inject archital pattern)
  */
-class FetchDetailQuestionUseCase(
+class FetchDetailQuestionUseCase @Inject constructor(
     private val stackoverflowApi: StackoverflowApi
 ) {
 

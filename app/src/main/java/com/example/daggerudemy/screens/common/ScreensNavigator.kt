@@ -1,9 +1,9 @@
 package com.example.daggerudemy.screens.common
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
 
-class ScreensNavigator(private val activity: Activity) {
+class ScreensNavigator(private val activity: AppCompatActivity) {
 
 
     fun navigateBack(){
