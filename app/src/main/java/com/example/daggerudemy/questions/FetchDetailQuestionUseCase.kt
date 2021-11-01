@@ -4,7 +4,6 @@ import com.example.daggerudemy.networking.StackoverflowApi
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
 import javax.inject.Inject
 
 
@@ -21,7 +20,7 @@ class FetchDetailQuestionUseCase @Inject constructor(
      * Exitoso o fallido
      */
     sealed class Result{
-        data class Success(val questionBody: String) :Result()
+        data class Success(val questionBody: QuestionWithBody) :Result()
         object Failure:Result()
     }
 
@@ -31,7 +30,7 @@ class FetchDetailQuestionUseCase @Inject constructor(
             try {
                 val response = stackoverflowApi.questionDetails(questionId)
                 if (response.isSuccessful && response.body() != null) {
-                    val questionBody = response.body()!!.question.body
+                    val questionBody = response.body()!!.question
                     return@withContext Result.Success(questionBody)
                 } else {
                     return@withContext Result.Failure

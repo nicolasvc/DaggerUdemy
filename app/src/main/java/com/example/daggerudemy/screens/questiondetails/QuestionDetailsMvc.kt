@@ -4,13 +4,16 @@ import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.daggerudemy.R
+import com.example.daggerudemy.questions.QuestionWithBody
+import com.example.daggerudemy.screens.common.imageloader.ImageLoader
 import com.example.daggerudemy.screens.common.toolbar.MyToolbar
 import com.example.daggerudemy.screens.common.viewsmvc.BaseViewMvc
 
-class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
+class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?,private val imageLoader:ImageLoader) :
     BaseViewMvc<QuestionDetailsMvc.Listener>(
         layoutInflater, parent,
         R.layout.layout_question_details
@@ -20,6 +23,8 @@ class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
     private val toolbar: MyToolbar
     private val swipeRefresh: SwipeRefreshLayout
     private val txtQuestionBody: TextView = findViewById(R.id.txt_question_body)
+    private val txtUserName:TextView = findViewById(R.id.txt_user_name)
+    private val imgUserName:ImageView = findViewById(R.id.img_user)
 
 
     interface Listener {
@@ -41,13 +46,16 @@ class QuestionDetailsMvc(layoutInflater: LayoutInflater, parent: ViewGroup?) :
     }
 
 
-    fun showData(questionBody: String) {
+    fun showData(questionBody: QuestionWithBody) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            txtQuestionBody.text = Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY)
+            txtQuestionBody.text = Html.fromHtml(questionBody.body, Html.FROM_HTML_MODE_LEGACY)
         } else {
             @Suppress("DEPRECATION")
-            txtQuestionBody.text = Html.fromHtml(questionBody)
+            txtQuestionBody.text = Html.fromHtml(questionBody.body)
         }
+
+        imageLoader.loadImagen(questionBody.owner.imageUrl,imgUserName)
+        txtUserName.text = questionBody.owner.name
     }
 
     fun showProgressIndication() {

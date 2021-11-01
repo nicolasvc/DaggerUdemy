@@ -8,6 +8,7 @@ import com.example.daggerudemy.questions.FetchDetailQuestionUseCase
 import com.example.daggerudemy.screens.common.ScreensNavigator
 import com.example.daggerudemy.screens.common.activities.BaseActivity
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
+import com.example.daggerudemy.screens.common.imageloader.ImageLoader
 import com.example.daggerudemy.screens.common.viewsmvc.ViewMvcFactory
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -28,6 +29,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsMvc.Listener {
 
     @Inject
     lateinit var viewMvcFactory: ViewMvcFactory
+
 
     private lateinit var questionDetailsMvc: QuestionDetailsMvc
 
