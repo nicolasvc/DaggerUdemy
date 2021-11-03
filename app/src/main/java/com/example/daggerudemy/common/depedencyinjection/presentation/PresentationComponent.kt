@@ -36,4 +36,6 @@ interface PresentationComponent {
     fun inject(activityQuestionDetail: QuestionDetailsActivity)
 
     fun inject(questionsListActivity: QuestionsListActivity)
+
+
 }

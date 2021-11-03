@@ -3,6 +3,8 @@ package com.example.daggerudemy.common.depedencyinjection.app
 import android.app.Application
 import com.example.daggerudemy.common.depedencyinjection.activity.ActivityComponent
 import com.example.daggerudemy.common.depedencyinjection.activity.ActivityModule
+import com.example.daggerudemy.common.depedencyinjection.service.ServiceComponent
+import com.example.daggerudemy.common.depedencyinjection.service.ServiceModule
 import com.example.daggerudemy.networking.StackoverflowApi
 import dagger.Component
 
@@ -19,4 +21,6 @@ interface AppComponent {
     fun stackoverflowApi() : StackoverflowApi
 
     fun newActivityComponent(activityModule: ActivityModule):ActivityComponent
+
+    fun newServiceComponent(serviceModule:ServiceModule):ServiceComponent
 }
