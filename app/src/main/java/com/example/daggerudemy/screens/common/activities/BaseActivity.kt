@@ -20,8 +20,12 @@ open class BaseActivity : AppCompatActivity() {
     private val appCompositionRoot get() = (application as MyApplication).appComponent
 
     val activityCompositionRoot by lazy {
-        appCompositionRoot.newActivityComponent(ActivityModule(this))
+        appCompositionRoot.newActivityComponentBuilder()
+            .activity(this)
+            .activityModule(ActivityModule)
+            .build()
     }
+
     /**
      * Se pasa como parametro la clase AppCompositionRoot a la clase de
      * ActivityCompositioRoot el cual permite solo tener una sola instancia

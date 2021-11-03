@@ -1,6 +1,8 @@
 package com.example.daggerudemy.common.depedencyinjection.activity
 
+import androidx.appcompat.app.AppCompatActivity
 import com.example.daggerudemy.common.depedencyinjection.presentation.PresentationComponent
+import dagger.BindsInstance
 import dagger.Subcomponent
 
 /**
@@ -13,5 +15,17 @@ import dagger.Subcomponent
 interface ActivityComponent {
 
     fun newPresentationComponent(): PresentationComponent
+
+    /**
+     * Aca se hace uso del patron Builder.
+     * Se hace uso de Subcomponent debido a que este Component es un Subcomponent
+     * si fuera un Component, se haria uso del Component
+     */
+    @Subcomponent.Builder
+    interface Builder{
+        @BindsInstance fun activity(activity:AppCompatActivity):Builder
+        fun activityModule(activityModule: ActivityModule):Builder
+        fun build():ActivityComponent
+    }
 
 }

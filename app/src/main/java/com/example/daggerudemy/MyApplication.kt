@@ -1,6 +1,7 @@
 package com.example.daggerudemy
 
 import android.app.Application
+import com.example.daggerudemy.common.depedencyinjection.app.AppComponent
 import com.example.daggerudemy.common.depedencyinjection.app.AppModule
 import com.example.daggerudemy.common.depedencyinjection.app.DaggerAppComponent
 
@@ -16,7 +17,7 @@ class MyApplication: Application() {
      * Ya haciendo la migración a dagger se permite obtener la misma inicialización de mejor forma
      * y asi omitir la creación o inicializacion la variable en el onCreate
      */
-    val appComponent by lazy {
+    val appComponent :AppComponent by lazy {
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build()

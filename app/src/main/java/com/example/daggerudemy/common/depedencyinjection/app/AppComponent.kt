@@ -20,7 +20,14 @@ interface AppComponent {
 
     fun stackoverflowApi() : StackoverflowApi
 
-    fun newActivityComponent(activityModule: ActivityModule):ActivityComponent
+    /**
+     * Si se dejara asi genera error debido a que dagger o puede crear el componente de
+     * ActivityComponent ya que el encargado sera el Builder
+     */
+    //fun newActivityComponent(activityModule: ActivityModule):ActivityComponent
+
+    fun newActivityComponentBuilder():ActivityComponent.Builder
+
 
     fun newServiceComponent(serviceModule:ServiceModule):ServiceComponent
 }
