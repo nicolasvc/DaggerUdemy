@@ -1,16 +1,12 @@
 package com.example.daggerudemy.screens.common
 
-import androidx.appcompat.app.AppCompatActivity
-import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
+/**
+ * Interfaz encargada de definir las acciones de navegación en la aplicacion
+ */
+interface ScreensNavigator {
 
-class ScreensNavigator(private val activity: AppCompatActivity) {
+    fun navigateBack()
 
 
-    fun navigateBack(){
-        activity.onBackPressed()
-    }
-
-    fun toQuestionDetails(questionId:String){
-        QuestionDetailsActivity.start(activity, questionId)
-    }
+    fun toQuestionDetails(questionId:String)
 }

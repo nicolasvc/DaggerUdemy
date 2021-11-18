@@ -2,15 +2,10 @@ package com.example.daggerudemy.screens.questionslist
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import com.example.daggerudemy.MyApplication
 import com.example.daggerudemy.R
-import com.example.daggerudemy.questions.FetchQuestionsUseCase
-import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.ScreensNavigator
+import com.example.daggerudemy.screens.common.ScreensNavigatorImpl
 import com.example.daggerudemy.screens.common.activities.BaseActivity
-import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
-import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class QuestionsListActivity : BaseActivity() {

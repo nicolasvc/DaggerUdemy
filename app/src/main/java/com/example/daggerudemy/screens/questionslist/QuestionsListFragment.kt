@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.daggerudemy.questions.FetchQuestionsUseCase
 import com.example.daggerudemy.questions.Question
 import com.example.daggerudemy.screens.common.ScreensNavigator
+import com.example.daggerudemy.screens.common.ScreensNavigatorImpl
 import com.example.daggerudemy.screens.common.dialogs.DialogsNavigator
 import com.example.daggerudemy.screens.common.fragments.BaseFragment
 import com.example.daggerudemy.screens.common.viewsmvc.ViewMvcFactory
