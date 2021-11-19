@@ -1,5 +1,6 @@
 package com.example.daggerudemy.common.depedencyinjection.presentation
 
+import com.example.daggerudemy.screens.common.imageloader.ImageLoader
 import com.example.daggerudemy.screens.questiondetails.QuestionDetailsActivity
 import com.example.daggerudemy.screens.questionslist.QuestionsListActivity
 import com.example.daggerudemy.screens.questionslist.QuestionsListFragment
