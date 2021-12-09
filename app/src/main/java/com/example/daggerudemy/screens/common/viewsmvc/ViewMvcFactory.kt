@@ -6,6 +6,7 @@ import com.example.daggerudemy.screens.common.imageloader.ImageLoader
 import com.example.daggerudemy.screens.questiondetails.QuestionDetailsMvc
 import com.example.daggerudemy.screens.questionslist.QuestionListViewMvc
 import javax.inject.Inject
+import javax.inject.Provider
 
 /**
  * Clase encargada de retornar un ListViewMvc y asi que este contenga el parametro
@@ -13,16 +14,16 @@ import javax.inject.Inject
  * @param layoutInflater parametro que permite la inicializancion de algunas clases
  */
 class ViewMvcFactory @Inject constructor(
-    private val layoutInflater: LayoutInflater,
-    private val imageLoader: ImageLoader
+    private val layoutInflater: Provider<LayoutInflater>,
+    private val imageLoaderProvider: Provider<ImageLoader>
 ) {
 
     fun newQuestionedListViewMvc(parentViewGroup: ViewGroup?): QuestionListViewMvc {
-        return QuestionListViewMvc(layoutInflater, parentViewGroup)
+        return QuestionListViewMvc(layoutInflater.get(), parentViewGroup)
     }
 
     fun newQuestionDetailesViewMvc(parentViewGroup: ViewGroup?): QuestionDetailsMvc {
-        return QuestionDetailsMvc(layoutInflater, parentViewGroup,imageLoader)
+        return QuestionDetailsMvc(layoutInflater.get(), parentViewGroup,imageLoaderProvider.get())
     }
 
 
